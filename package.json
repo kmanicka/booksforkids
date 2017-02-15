@@ -6,9 +6,11 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "async": "2.1.4",
     "body-parser": "~1.16.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
+    "e_bay_buy_api": "0.0.1",
     "express": "~4.14.1",
     "hbs": "~4.0.1",
     "morgan": "~1.7.0",
