@@ -9,6 +9,8 @@ var EBayBuyApi = require('e_bay_buy_api');
 
 var index = require('./routes/index');
 var browse = require('./routes/browse');
+var guest_checkout = require('./routes/guest_checkout');
+
 
 var app = express();
 
@@ -21,7 +23,11 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 
 
+/**************************************************************/
+// eBay specific handler
 // get the env variables
+/**************************************************************/
+
 app.use(function(req, res, next) {
   // Token has special charecters so its enclosed by quotes in ENV. 
   var authToken;
@@ -49,9 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/browse', browse); 
-
-
-
+app.use('/guest_checkout', guest_checkout); 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

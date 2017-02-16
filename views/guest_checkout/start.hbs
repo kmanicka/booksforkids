@@ -1,0 +1,129 @@
+<div class="page-header">
+  <h1>Guest Checkout <small>Contact and Shipping Address</small></h1>
+</div>
+
+<div class="row"> 
+  <form class="form-horizontal" action="/guest_checkout/update_payment" method="POST">
+
+	<div class="col-lg-8">
+
+		<div class="panel panel-info">
+			<div class="panel-heading">Contact</div>
+			<div class="panel-body">
+			  <div class="form-group">
+			    <label for="contactEmail" class="col-sm-3 control-label">Email</label>
+			    <div class="col-sm-8">
+			      <input type="email" class="form-control" id="contactEmail" name="contactEmail" placeholder="Email">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="contactFirstName" class="col-sm-3 control-label">First Name</label>
+			    <div class="col-sm-8">
+			      <input type="text" class="form-control" id="contactFirstName" name="contactFirstName" placeholder="First Name">
+			    </div>
+			  </div>
+		
+			  <div class="form-group">
+			    <label for="contactLastName" class="col-sm-3 control-label">Last Name</label>
+			    <div class="col-sm-8">
+			      <input type="text" class="form-control" id="contactLastName" name="contactLastName" placeholder="Last Name">
+			    </div>
+			  </div>	
+			</div>
+		</div>
+		<div class="panel panel-info">
+			<div class="panel-heading">Shipping Address</div>
+			<div class="panel-body">			  
+			  <div class="form-group">
+			    <label for="recipient" class="col-sm-3 control-label">Recipient</label>
+			    <div class="col-sm-8">
+			      <input type="text" class="form-control" id="recipient" name="recipient" placeholder="Recipient">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="phoneNumber" class="col-sm-3 control-label">Phone</label>
+			    <div class="col-sm-8">
+			      <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone Number">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="addressLine1" class="col-sm-3 control-label">Address</label>
+			    <div class="col-sm-8">
+			      <input type="text" class="form-control" id="addressLine1" name="addressLine1" placeholder="Address Line #1">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for=city class="col-sm-3 control-label">City</label>
+			    <div class="col-sm-8">
+			      <input type="text" class="form-control" id="city" name="city" placeholder="City">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="stateOrProvince" class="col-sm-3 control-label">State</label>
+			    <div class="col-sm-8">
+			      <input type="text" class="form-control" id="stateOrProvince" name="stateOrProvince" placeholder="State Or Province">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="postalCode" class="col-sm-3 control-label">Postal Code</label>
+			    <div class="col-sm-8">
+			      <input type="text" class="form-control" id="postalCode" name="postalCode" placeholder="Postal Code">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="country" class="col-sm-3 control-label">Country</label>
+			    <div class="col-sm-8">
+			      <input type="text" class="form-control" id="country" name="country" placeholder="Country">
+			    </div>
+			  </div>
+	
+			</div>
+		</div>	
+	</div>
+
+	<div class="col-lg-4">
+
+
+		<div class="panel panel-info">
+			<div class="panel-body">			
+				<!-- button type="submit" class="btn btn-primary btn-lg btn-block">Continue</button-->
+				<a class="btn btn-primary btn-lg btn-block" href="/guest_checkout/update_payment">Continue</a>
+			</div>
+		</div>
+
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+			  <table class="table table-hover">				
+
+				<thead>
+					<tr><th>Checkout Summary</th></tr>
+				</thead>
+				<tbody>
+				<tr><td>
+			  <div class="form-group">
+			    <label for="itemId" class="col-sm-3 control-label">Item Id</label>
+			    <div class="col-sm-8">
+			      <input type="text" class="form-control" id="itemId" name="itemId" value="${itemId}">
+			    </div>
+			  </div>
+			  </td></tr><tr><td>
+			  <div class="form-group">
+			    <label for="quantity" class="col-sm-3 control-label">quantity</label>
+			    <div class="col-sm-3">
+			      <input type="text" class="form-control" id="quantity" name="quantity" value="1">
+			    </div>
+			  </div>
+			  </td></tr></tbody>
+			  </table>
+			</div>
+		</div>
+
+		
+	</div>
+  </form>
+
+</div>
+
