@@ -7,9 +7,23 @@ var EBayBuyApi = require('e_bay_buy_api');
 // Start Guest Checkout Page
 /**********************************************************/
 
-router.get('/start', function(req, res, next) {
-  res.render('guest_checkout/start', { title: 'Express' });
+router.get('/start/:itemId/:quantity', function(req, res, next) {
+  var itemId = req.params.itemId;
+  var quantity = req.params.quantity;
+  res.render('guest_checkout/start', { 'itemId': itemId,'quantity': quantity });
 });
+
+
+/**********************************************************/
+// Start Guest Checkout Session Page
+/**********************************************************/
+
+router.get('/start_session', function(req, res, next) {
+  var itemId = req.params.itemId;
+  var quantity = req.params.quantity;
+  res.render('guest_checkout/start', { 'itemId': itemId,'quantity': quantity });
+});
+
 
 
 /**********************************************************/

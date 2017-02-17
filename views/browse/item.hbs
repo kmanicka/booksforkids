@@ -1,27 +1,95 @@
 <div class="page-header">
-	<h2>{{title}}</h2>
+	<h3>{{data.title}}</h3>
+  <p>{{data.subtitle}} (Listed in : {{data.categoryPath}}) </p>
 </div>
 
 <div class="row">
   <div class="col-lg-4">
-	   <p>TBD</p>
+
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <!-- ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+          </ol -->
+          <div class="carousel-inner" role="listbox">
+
+
+            <div class="item viewItemImg active">
+              <img class="viewItemImg img-responsive center-block" src="{{data.image.imageUrl}}"" alt="{{data.title}}" >
+            </div>
+
+            {{#each data.additionalImages}}
+              <div class="item viewItemImg">
+                <img class="viewItemImg img-responsive center-block" src="{{this.imageUrl}}"" alt="{{data.title}}" >
+              </div>
+            {{/each}}
+
+          </div>
+
+          <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
   </div>
+
   <div class="col-lg-4">
-	   <p>TBD</p>
+      <table class="table table-hover table-condensed table-borderless">
+        <tbody>
+          <tr><td>Item Id </td><td><a href="{{data.itemWebUrl}}" >{{data.itemId}}</a> </td></tr>
+
+          <tr><td>Item Condition </td><td> {{data.condition}}</td></tr>
+          <tr><td>Price     </td><td> ${{data.price.value}}</td></tr>
+          <tr><td>Sold     </td><td> {{data.price.quantitySold}}</td></tr>
+          <tr><td>End Date     </td><td> {{data.price.itemEndDate}}</td></tr>
+
+          <tr><td>Location     </td><td> {{data.itemLocation.city}}, {{data.itemLocation.stateOrProvince}}</td></tr>
+          <tr><td>Shipping </td><td> {{data.shippingOptions.0.shippingServiceName}}</td></tr>
+          <tr><td>Shipping Cost </td><td> ${{data.shippingOptions.0.shippingCost.value}}</td></tr>
+          <tr><td>Return Accepted </td><td> {{data.returnTerms.returnsAccepted}} </td></tr>
+        </tbody>
+      </table>    
   </div>
   <div class="col-lg-4">
 	   <div class="panel panel-info">
       <div class="panel-body">      
-        <a class="btn btn-primary btn-lg btn-block" href="/guest_checkout/start" >Guest Checkout </a>
+        <a class="btn btn-primary btn-lg btn-block" href="/guest_checkout/start/{{data.itemId}}/1" >Guest Checkout </a>
       </div>
     </div>
+    <table class="table table-hover table-condensed table-borderless">
+      <tbody>
+        <tr><td>Seller     </td><td> {{data.seller.username}}, {{data.seller.feedbackPercentage}}% ({{data.seller.feedbackScore}})</td></tr>
+        <tr><td>Top Rated</td><td> {{data.topRatedBuyingExperience}} </td></tr>
+        <tr><td>Item Group </td><td> {{data.primaryItemGroupId}} </td></tr>
+        <tr><td>gtin </td><td> {{data.gtin}} </td></tr>
+        <tr><td>Product Rating </td><td> {{data.primaryProductReviewRating.averageRating}} ({{data.primaryProductReviewRating.reviewCount}})</td></tr>      
+       </tbody>
+    </table>    
+
+
   </div>
+</div>
+
+<div class="page-header">
+  <h3>Description</h3>
+
 </div>
 
 <div class="row">
   <div class="col-lg-12">
-	<div class="well">
-	<p>TBD</p>
-	</div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{data.shortDescription}}
+      </div>
+      <div class="panel-body">
+        {{{data.description}}}
+      </div>
+     </div>
   </div>
 </div>

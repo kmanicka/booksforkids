@@ -37,3 +37,22 @@ body > .container {
 code {
   font-size: 80%;
 }
+
+
+
+
+.viewItemImg img {
+  width: auto;
+  height: 300px;
+  max-height: 300px;
+}
+
+
+.table-borderless tbody tr td,
+.table-borderless tbody tr th,
+.table-borderless thead tr th,
+.table-borderless thead tr td,
+.table-borderless tfoot tr th,
+.table-borderless tfoot tr td {
+    border: none;
+}

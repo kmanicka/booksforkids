@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var EBayBuyApi = require('e_bay_buy_api');
+var prettyjson = require('prettyjson');
 
 
 var index = require('./routes/index');

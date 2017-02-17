@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var async = require('async');
+var prettyjson = require('prettyjson');
 var EBayBuyApi = require('e_bay_buy_api');
 
 /**********************************************************/
@@ -19,9 +20,9 @@ router.get('/item_group', function(req, res, next) {
 });
 
 
-/**********************************************************/
+/**************************************************************************************************/
 // Search Page
-/**********************************************************/
+/**************************************************************************************************/
 router.get('/search', function(req, res, next) {
 
   async.waterfall([
@@ -57,8 +58,6 @@ router.get('/search', function(req, res, next) {
 				  'sort': [] // [String] | Sort Field
 				};
 
-			  console.log(filter);
-
 			  var api = new EBayBuyApi.BrowseApi()
 			  // setting up the Authorization for the api call. 
 			  EBayBuyApi.ApiClient.instance.authentications['OauthSecurity'].apiKey = req.eBayConfig.superAuthToken;
@@ -70,9 +69,15 @@ router.get('/search', function(req, res, next) {
 
         if (error) {
 
+        	console.log('Error in Search');
+			console.log(prettyjson.render(error));
+
             res.render('error',{message:  error.response.text});
 
         } else {
+
+        	console.log('Data received during search call');
+			console.log(prettyjson.render(data));
 
         	/*****************************************************/
         	// post process response elements for web presentation
@@ -98,7 +103,6 @@ router.get('/search', function(req, res, next) {
         	local.data = data;
         	local.req = req;
 
-        	console.log('Data : ' + data.href)
 		    res.render('browse/search', local);
         }
 
@@ -106,29 +110,41 @@ router.get('/search', function(req, res, next) {
 });
 
 
-/**********************************************************/
+/**************************************************************************************************/
 // View Item Page
-/**********************************************************/
+/**************************************************************************************************/
 router.get('/item/:itemId', function(req, res, next) {
-
-    var itemId = req.params.itemId;
-	var api = new EBayBuyApi.BrowseApi()
-
-	// setting up the Authorization for the api call. 
-	EBayBuyApi.ApiClient.instance.authentications['OauthSecurity'].apiKey = req.eBayConfig.superAuthToken;
-
     async.waterfall([
 	        function(next) {
-	        	 console.log('Calling getItem API ' + itemId);
-				 api.getItem(itemId, next);
+			    var itemId = req.params.itemId;
+	        	console.log('Calling getItem API ' + itemId);
+
+				var api = new EBayBuyApi.BrowseApi()
+				// setting up the Authorization for the api call. 
+				EBayBuyApi.ApiClient.instance.authentications['OauthSecurity'].apiKey = req.eBayConfig.superAuthToken;
+
+				api.getItem(itemId, next);
 	        }
 	    ],
        	function(error,data,response,next) { 
 
 	        if (error) {
+
+	        	console.log('Error in Search');
+				console.log(prettyjson.render(error));
+	            
 	            res.render('error',{message:  error.response.text});
+
 	        } else {
-			    res.render('browse/item', { title: data.title });
+
+	        	console.log('Data received during search call');
+				console.log(prettyjson.render(data));			
+
+		    	var local = {};
+		    	local.data = data;
+		    	local.req = req;
+			    res.render('browse/item', local);
+
 	        }
 
 	    }); 
