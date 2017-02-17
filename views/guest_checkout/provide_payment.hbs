@@ -132,25 +132,30 @@
 						<tbody>
 
 							<tr>
-								<td>#{list items:data.lineItems, as:'item'} <a
-									href="@{Application.item(item.itemId)}" class="thumbnail">
-										<img src="${item.image}" alt="${item.title}">
-								</a> <a href="@{Application.item(item.itemId)}">${item.title}</a> </a>
-									<p>Quantity : TBD</p> #{/list}
+								<td> 
+									<a href="/browse/item/{{data.lineItems.0.itemId}}" class="thumbnail">
+										<img src="{{data.lineItems.0.image.imageUrl}}" >
+									</a> 
+									<a href="/browse/item/{{data.lineItems.0.itemId}}">{{data.lineItems.0.title}}</a>
+									<p>Quantity : 1</p> 
 								</td>
+
 							</tr>
 
 							<tr>
 								<td>
 
-									<h4>Shipping Method</h4> #{list
-									items:data.lineItems.get(0).shippingOptions, as:'option'} #{if
-									option.selected}
-									<div class="checkbox">
-										<label> <input type="checkbox" checked>
-											${option.shippingServiceName}| $ ${option.baseDeliveryCost}
-										</label>
-									</div> #{/if} #{/list}
+									<h4>Shipping Method</h4> 
+
+									{{#each data.lineItems.0.shippingOptions}}
+										{{#if this.selected}}
+										<div class="checkbox">
+											<label> <input type="checkbox" checked>
+												{{this.shippingServiceName}} $ {{this.baseDeliveryCost.value}}
+											</label>
+										</div>
+										{{/if}}
+									{{/each}}
 
 								</td>
 							</tr>
@@ -158,42 +163,50 @@
 								<td>
 
 									<h4>Shipping Address</h4>
-									<p>${data.shippingAddress.recipient}</p>
-									<p>${data.shippingAddress.addressLine1}</p>
-									<p>${data.shippingAddress.city},
-										${data.shippingAddress.stateOrProvince},
-										${data.shippingAddress.postalCode},
-										${data.shippingAddress.country}</p>
-									<p>${data.shippingAddress.phoneNumber}</p>
+
+									<p>{{data.shippingAddress.recipient}}</p>
+									<p>{{data.shippingAddress.addressLine1}}</p>
+									<p>{{data.shippingAddress.city}},
+										{{data.shippingAddress.stateOrProvince}},
+										{{data.shippingAddress.postalCode}}, {{data.shippingAddress.country}}</p>
+									<p>{{data.shippingAddress.phoneNumber}}</p>
 
 								</td>
 							</tr>
 							<tr>
 								<td>
 
-									<h4>Pricing</h4>
-									<table class="table table-condensed">
-										<tr>
-											<th>Sub total</th>
-											<th>$ ${data.pricingSummary.priceSubtotal}</th>
-										</tr>
-										<tr>
-											<th>Delivery Cost</th>
-											<th>$ ${data.pricingSummary.deliveryCost}</th>
-										</tr>
-										<tr>
-											<th>Tax</th>
-											<th>$ ${data.pricingSummary.tax}</th>
-										</tr>
-										<tr>
-											<th>Adjustment</th>
-											<th>$ ${data.pricingSummary.adjustment}</th>
-										</tr>
-										<tr>
-											<th>Total</th>
-											<th>$ ${data.pricingSummary.total}</th>
-										</tr>
+									<table class="table table-hover table-borderless">
 
+										<thead>
+											<tr colspan="2">
+												<th>Pricing</th>
+											</tr>
+										</thead>
+										<tbody>
+
+											<tr>
+												<th>Sub total</th>
+												<th>$ {{data.pricingSummary.priceSubtotal.value}}</th>
+											</tr>
+											<tr>
+												<th>Delivery Cost</th>
+												<th>$ {{data.pricingSummary.deliveryCost.value}}</th>
+											</tr>
+											<tr>
+												<th>Tax</th>
+												<th>$ {{data.pricingSummary.tax.value}}</th>
+											</tr>
+											<tr>
+												<th>Adjustment</th>
+												<th>$ {{data.pricingSummary.adjustment.value}}</th>
+											</tr>
+											<tr class="info">
+												<th>Total</th>
+												<th>$ {{data.pricingSummary.total.value}}</th>
+											</tr>
+
+										</tbody>
 									</table>
 
 								</td>

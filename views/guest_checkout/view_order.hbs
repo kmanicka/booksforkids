@@ -17,6 +17,7 @@
 					<h4>Items</h4>
 
 				</td></tr><tr><td>
+
 				<div class="row">
 					<div class="col-lg-4">
 						<a href="/browse/item/{{data.lineItems.0.itemId}}" class="thumbnail">
@@ -48,10 +49,10 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 
-				<table class="table table-hover">
+				<table class="table table-hover table-borderless">
 
 					<thead>
-						<tr>
+						<tr colspan="2">
 							<th>Pricing</th>
 						</tr>
 					</thead>
@@ -73,7 +74,7 @@
 							<th>Adjustment</th>
 							<th>$ {{data.pricingSummary.adjustment.value}}</th>
 						</tr>
-						<tr>
+						<tr class="info">
 							<th>Total</th>
 							<th>$ {{data.pricingSummary.total.value}}</th>
 						</tr>
