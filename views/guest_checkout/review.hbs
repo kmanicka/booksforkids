@@ -1,7 +1,7 @@
 
 
 <div class="page-header">
-  <h3>Guest Checkout <small>${data.checkoutSessionId}</small> </h3>
+  <h3>Guest Checkout <small>{{data.checkoutSessionId}}</small> </h3>
   <p>Review your order</p>
 </div>
 
@@ -81,9 +81,8 @@
 
 		<div class="panel panel-info">
 			<div class="panel-body">
-				<!-- a href="@{GuestCheckout.placeorderaction(data.checkoutSessionId)}"
-					class="btn btn-primary btn-lg btn-block">Complete</a -->
-				<a class="btn btn-primary btn-lg btn-block" href="/guest_checkout/view_order">Complete</a>
+				<a href="/guest_checkout/place_order/{{data.checkoutSessionId}}"
+					class="btn btn-primary btn-lg btn-block">Complete</a>
 			</div>
 		</div>
 

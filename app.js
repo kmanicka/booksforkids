@@ -33,19 +33,36 @@ app.use(function(req, res, next) {
 
   console.log('eBay request filter');
 
-  // Token has special charecters so its enclosed by quotes in ENV. 
+  // Token has special charecters so we should enclose it by quotes in ENV. 
   var authToken;
   if(process.env.EBAY_SUPER_AUTH_TOKEN){
   	authToken = process.env.EBAY_SUPER_AUTH_TOKEN.replace(/"/g,'');
   }
 
-  req.eBayConfig = {
-	  "isSandbox" : process.env.EBAY_SANDBOX || true,
+  req.eBay = {
+	  "isSandbox" : (process.env.EBAY_SANDBOX == "TRUE"),
 	  "clientId" : process.env.EBAY_CLIENT_ID,
 	  "clientSecret" : process.env.EBAY_CLIENT_SECRET,
 	  "ruName" : process.env.EBAY_RUNAME,
-	  "superAuthToken" : authToken  	
-  }  
+	  "superAuthToken" : authToken,
+    "browseApi" : new EBayBuyApi.BrowseApi(),
+    "orderApi" : new EBayBuyApi.OrderApi()
+  }
+
+  EBayBuyApi.ApiClient.instance.authentications['OauthSecurity'].apiKey = req.eBay.superAuthToken;
+
+  if(req.eBay.isSandbox) {
+    console.log('eBay request filter as Sandbox');
+    EBayBuyApi.ApiClient.instance.basePath = 'https://api.sandbox.ebay.com/buy'.replace(/\/+$/, '');
+  }
+
+  if(!req.eBay.isSandbox) {
+    console.log('eBay request filter as Production');
+    
+    //TODO Production Base Url for Order API should be. 
+    //https://apix.ebay.com/buy
+
+  }
 
   next()
 });

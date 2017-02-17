@@ -58,11 +58,7 @@ router.get('/search', function(req, res, next) {
 				  'sort': [] // [String] | Sort Field
 				};
 
-			  var api = new EBayBuyApi.BrowseApi()
-			  // setting up the Authorization for the api call. 
-			  EBayBuyApi.ApiClient.instance.authentications['OauthSecurity'].apiKey = req.eBayConfig.superAuthToken;
-
-			  api.searchForItems(q, opts, next);
+			  req.eBay.browseApi.searchForItems(q, opts, next);
         }
     ],
    	function(error,data,response,next) {
@@ -84,6 +80,7 @@ router.get('/search', function(req, res, next) {
 
         	// prepare the previous url offset
         	if(data.prev){
+        		console.log(data.prev);
         		var prev_offset = parseInt(req.query.offset) - parseInt(req.query.limit);
         		data.prev_url = 'q=' + req.query.q + '&limit=' + req.query.limit + '&offset=' + prev_offset;	        	
 	        	if(req.query.condition) data.prev_url += '&condition=' + req.query.condition;
@@ -92,6 +89,7 @@ router.get('/search', function(req, res, next) {
 
         	// prepare the next url offset
         	if(data.next){
+        		console.log(data.next);
         		var next_offset = parseInt(req.query.offset) + parseInt(req.query.limit);
         		data.next_url = 'q=' + req.query.q + '&limit=' + req.query.limit + '&offset=' + next_offset;	        	
 	        	if(req.query.condition) data.next_url += '&condition=' + req.query.condition;
@@ -119,11 +117,8 @@ router.get('/item/:itemId', function(req, res, next) {
 			    var itemId = req.params.itemId;
 	        	console.log('Calling getItem API ' + itemId);
 
-				var api = new EBayBuyApi.BrowseApi()
-				// setting up the Authorization for the api call. 
-				EBayBuyApi.ApiClient.instance.authentications['OauthSecurity'].apiKey = req.eBayConfig.superAuthToken;
 
-				api.getItem(itemId, next);
+				req.eBay.browseApi.getItem(itemId, next);
 	        }
 	    ],
        	function(error,data,response,next) { 
