@@ -1,7 +1,11 @@
 <div class="page-header">
 	<form method="get" action="/browse/search">
 	    <div class="input-group">
-	      <input type="text" name="q" class="form-control input-lg" placeholder="Search...">
+	      <input type="text" name="q" class="form-control input-lg" placeholder="Search..." value="{{req.query.q}}">
+
+	      <input type="hidden" name="limit" value="10">
+	      <input type="hidden" name="offset" value="0">
+
 	      <span class="input-group-btn">
 	        <button class="btn btn-primary input-lg" type="submit">Search</button>
 	      </span>
@@ -9,9 +13,117 @@
 	</form>
 </div>
 
+
 <div class="row">
-  <div class="col-lg-12"> 
-	<h2>Search</h2>
-	<h2>TBD</h2>
+  <div class="col-lg-2">
+		<table class="table table-hover table-condenced table-bordered">
+			<thead>
+				<tr>
+					<th>
+						<p>filter by price</p>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			  {{#if req.query.price}}
+
+				<tr class="info"><td>{{req.query.price}}</td></tr>
+
+			  {{else}}
+
+				<tr><td><a href="{{req.originalUrl}}&price=[..10]">&lt$10</a></td></tr>
+				<tr><td><a href="{{req.originalUrl}}&price=[10..50]">$10-$50</a></td></tr>
+				<tr><td><a href="{{req.originalUrl}}&price=[50..100]">$50-$100</a></td></tr>
+				<tr><td><a href="{{req.originalUrl}}&price=[100..500]">$100-$500</a></td></tr>
+				<tr><td><a href="{{req.originalUrl}}&price=[500..1000]">$500-$1000</a></td></tr>
+				<tr><td><a href="{{req.originalUrl}}&price=[1000..]">&gt$1000</a></td></tr>
+
+			  {{/if}}
+
+
+			</tbody>
+		</table>    
+		<table class="table table-hover table-condenced table-bordered">
+			<thead>
+				<tr>
+					<th>
+						<p>filter by condition</p>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			  {{#if req.query.condition}}
+				
+				<tr class="info"><td>{{req.query.condition}}</td></tr>
+
+			  {{else}}
+
+				<tr><td><a href="{{req.originalUrl}}&condition={NEW}">NEW</a></td></tr>
+				<tr><td><a href="{{req.originalUrl}}&condition={USED}">USED</a></td></tr>
+				<tr><td><a href="{{req.originalUrl}}&condition={UNSPECIFIED}">UNSPECIFIED</a></td></tr>
+
+			  {{/if}}
+
+			</tbody>
+		</table> 
+
+     	<a class="btn btn-default btn-block" href="/browse/search?q={{req.query.q}}&limit={{req.query.limit}}&offset={{req.query.offset}}">Clear Filter</a>
+
+  </div>
+
+  <div class="col-lg-10">
+	  <div class="panel panel-default">
+		  <div class="panel-body">
+			<table class="table table-hover table-condenced">
+				<thead>
+					<tr>
+						<th colspan="2">
+							<h4><small>Search results for </small>{{req.query.q}}</h4>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each data.itemSummaries}}
+						<tr>
+							<td>
+						      <a href="/browse/item/{{this.itemId}}" class="thumbnail">
+						        <img height="100px" src="{{this.image.imageUrl}}")}" alt="{{this.title}}" >
+						      </a>			
+							</td>
+							<td>
+						      <a href="/browse/item/{{this.itemId}}"><h4 class="media-heading">{{this.title}}</h4></a>
+						      <p> ${{this.price.value}} |  {{this.condition}} | {{this.seller.username}}</p>			
+							</td>
+						</tr>
+		  			{{/each}}
+
+				</tbody>
+			</table>    
+		  </div>
+		  <div class="panel-footer">
+
+			<nav aria-label="...">
+			  <ul class="pager">
+
+				  {{#if data.prev}}			
+				    <li class="previous"><a href="/browse/search?{{data.prev_url}}"><span aria-hidden="true">&larr;</span> Previous </a></li>
+				  {{else}}
+				    <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Previous </a></li>
+				  {{/if}}
+
+				  {{#if data.next}}			
+				    <li class="next"><a href="/browse/search?{{data.next_url}}">Next <span aria-hidden="true">&rarr;</span></a></li>
+				  {{else}}
+				    <li class="next disabled"><a href="#">Next <span aria-hidden="true">&rarr;</span></a></li>
+				  {{/if}}
+			    
+			  </ul>
+			</nav>
+		  </div>
+	  </div>
   </div>
 </div>
+
+
